@@ -177,7 +177,13 @@ impl<'a> Attempt<'a> {
     /// Returns an action meaning reqwest should follow the next URL.
     pub fn follow(self) -> Action {
         Action {
-            inner: ActionKind::Follow,
+            inner: ActionKind::Follow(false),
+        }
+    }
+    /// Returns an action meaning reqwest should follow the next URL.
+    pub fn follow_trusted(self) -> Action {
+        Action {
+            inner: ActionKind::Follow(true),
         }
     }
 
@@ -226,7 +232,7 @@ impl fmt::Debug for PolicyKind {
 
 #[derive(Debug)]
 pub(crate) enum ActionKind {
-    Follow,
+    Follow(bool),
     Stop,
     Error(Box<dyn StdError + Send + Sync>),
 }
@@ -265,7 +271,7 @@ fn test_redirect_policy_limit() {
         .collect::<Vec<_>>();
 
     match policy.check(StatusCode::FOUND, &next, &previous) {
-        ActionKind::Follow => (),
+        ActionKind::Follow(_) => (),
         other => panic!("unexpected {:?}", other),
     }
 
@@ -301,7 +307,7 @@ fn test_redirect_policy_custom() {
 
     let next = Url::parse("http://bar/baz").unwrap();
     match policy.check(StatusCode::FOUND, &next, &[]) {
-        ActionKind::Follow => (),
+        ActionKind::Follow(_) => (),
         other => panic!("unexpected {:?}", other),
     }
 
