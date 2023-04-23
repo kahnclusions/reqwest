@@ -1,3 +1,22 @@
+## v0.11.16
+
+- Chore: set MSRV in `Cargo.toml`.
+- Docs: fix build on docs.rs
+
+## v0.11.15
+
+- Add `RequestBuilder` methods to split and reconstruct from its parts.
+- Add experimental HTTP/3 support.
+- Fix `connection_verbose` to log `write_vectored` calls.
+- (wasm) Make requests actually cancel if the future is dropped.
+
+## v0.11.14
+
+- Adds `Proxy::no_proxy(url)` that works like the NO_PROXY environment variable.
+- Adds `multipart::Part::headers(headers)` method to add custom headers.
+- (wasm) Add `Response::bytes_stream()`.
+- Perf: several internal optimizations reducing copies and memory allocations.
+
 ## v0.11.13
 
 - Add `ClientBuilder::dns_resolver()` option for custom DNS resolvers.
