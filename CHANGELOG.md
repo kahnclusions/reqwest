@@ -1,3 +1,13 @@
+## v0.11.18
+
+- Fix `RequestBuilder::json()` method from overriding a previously set `content-type` header. An existing value will be left in place.
+- Upgrade internal dependencies for rustls and compression.
+
+## v0.11.17
+
+- Upgrade internal dependencies of Experimental HTTP/3 to use quinn v0.9
+- (wasm) Fix blob url support
+
 ## v0.11.16
 
 - Chore: set MSRV in `Cargo.toml`.
